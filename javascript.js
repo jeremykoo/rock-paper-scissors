@@ -1,4 +1,28 @@
-console.log("Hello World");
+const moves = document.querySelector("#moves");
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+const spanHuman = document.querySelector("#human");
+const spanComputer = document.querySelector("#computer")
+const result = document.querySelector("h2");
+
+let humanScore = 0;
+let computerScore = 0;
+let computerChoice = getComputerChoice();
+
+moves.addEventListener("click", (event) => {
+    let target = event.target;
+    humanChoice = target.id;
+    playRound(humanChoice, computerChoice);
+    spanHuman.textContent = humanScore;
+    spanComputer.textContent = computerScore;
+    if (humanScore == 5) {
+        result.textContent = "You win! :)"
+    } else if (computerScore == 5) {
+        result.textContent = "You lose. :("
+    }
+    computerChoice = getComputerChoice();
+});
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
@@ -14,13 +38,9 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt('Type "rock", "paper", or "scissors"!');
-    return choice;
-}
-
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
+    result.textContent = `human choice = ${humanChoice}, computer choice = ${computerChoice}`
     if (humanChoice === computerChoice) {
         console.log("Tie! No one wins.");
         return;
@@ -52,17 +72,4 @@ function playRound(humanChoice, computerChoice) {
             humanScore++;
         }
     }
-}
-
-let humanScore = 0;
-let computerScore = 0;
-
-for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    console.log(humanSelection);
-    console.log(computerSelection);
-    playRound(humanSelection, computerSelection);
-    console.log(`Your score: ${humanScore}`);
-    console.log(`Computer score: ${computerScore}`);
 }
